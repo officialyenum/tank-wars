@@ -1,4 +1,5 @@
 export * from './Position'
+export * from './Rotation'
 export * from './Velocity'
 export * from './Sprite'
 export * from './Player'

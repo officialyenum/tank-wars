@@ -7,7 +7,7 @@ import {
     IWorld,
 } from 'bitecs'
 
-import { Position, Velocity, Sprite, Player } from '../components'
+import { Position, Rotation, Velocity, Sprite, Player } from '../components'
 
 import { createSpriteSystem, createMovementSystem, createPlayerSystem } from '../systems'
 
@@ -37,6 +37,10 @@ export class Game extends Phaser.Scene
 
         Position.x[tank] = 100
         Position.y[tank] = 100
+
+
+        addComponent(this.world, Rotation, tank)
+        Rotation.angle[tank] = 0;
 
         addComponent(this.world, Velocity, tank)
 

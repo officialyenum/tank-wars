@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import { defineQuery, defineSystem } from 'bitecs'
-import { Player, Velocity } from '../components'
+import { Player, Rotation, Velocity } from '../components'
 
 
 export const createPlayerSystem = (cursors: Phaser.Types.Input.Keyboard.CursorKeys) => {
@@ -13,21 +13,25 @@ export const createPlayerSystem = (cursors: Phaser.Types.Input.Keyboard.CursorKe
             {
                 Velocity.x[id] = -5
                 Velocity.y[id] = 0
+                Rotation.angle[id] = 180
             }
             else if(cursors.right.isDown)
             { 
                 Velocity.x[id] = 5
                 Velocity.y[id] = 0
+                Rotation.angle[id] = 0
             }
             else if(cursors.up.isDown)
             {
                 Velocity.x[id] = 0
                 Velocity.y[id] = -5
+                Rotation.angle[id] = 270
             }
             else if(cursors.down.isDown)
             {
                 Velocity.x[id] = 0
                 Velocity.y[id] = 5
+                Rotation.angle[id] = 90
             }
             else
             {

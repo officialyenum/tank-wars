@@ -4,7 +4,7 @@ import {
     enterQuery,
     exitQuery
 } from 'bitecs'
-import { Position, Sprite } from '../components'
+import { Position, Rotation,  Sprite } from '../components'
 
 
 export const createSpriteSystem = (scene: Phaser.Scene, textures: string[]) => {
@@ -27,6 +27,7 @@ export const createSpriteSystem = (scene: Phaser.Scene, textures: string[]) => {
             if (!sprite) continue
             sprite.x = Position.x[id]
             sprite.y = Position.y[id]
+            sprite.angle = Rotation.angle[id]
         }
         const exitEntities = spriteQueryExit(world)
         for (let i = 0; i < exitEntities.length; i++) {
