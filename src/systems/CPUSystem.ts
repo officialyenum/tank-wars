@@ -15,7 +15,7 @@ export const createCPUSystem = (scene: Phaser.Scene) => {
             {
                 continue
             }
-            CPU.accumulatedTime[id] = 0
+            CPU.accumulatedTime[id] -= CPU.timeBetweenActions[id]
             const rand = Phaser.Math.Between(0,20)
             switch (rand) {
                 // left

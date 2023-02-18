@@ -41,7 +41,7 @@ export class Game extends Phaser.Scene
     private spriteStaticSystem?: System
     private movementSystem?: System
     private playerSystem?: System
-    // private cpuSystem?: System
+    private cpuSystem?: System
     private cursors!: Phaser.Types.Input.Keyboard.CursorKeys
 	constructor()
 	{
@@ -94,39 +94,40 @@ export class Game extends Phaser.Scene
         ArcadeSpriteStatic.texture[smallTree] = Textures.TreeBrownSmall
 
         //TODO: Create random CPU Tanks
-        // for (let i = 0; i < 20; i++) {
-        //     const cpuTank = addEntity(this.world);
-        //     addComponent(this.world, Position, cpuTank)
-        //     Position.x[cpuTank] = Phaser.Math.Between(width * 0.25, width * 0.75)
-        //     Position.y[cpuTank] = Phaser.Math.Between(height * 0.25, height *0.75)
+        for (let i = 0; i < 5; i++) {
+            const cpuTank = addEntity(this.world);
+            addComponent(this.world, Position, cpuTank)
+            Position.x[cpuTank] = Phaser.Math.Between(width * 0.25, width * 0.75)
+            Position.y[cpuTank] = Phaser.Math.Between(height * 0.25, height *0.75)
 
-        //     addComponent(this.world, Rotation, cpuTank)
-        //     Rotation.angle[cpuTank] = 0;
+            addComponent(this.world, Rotation, cpuTank)
+            Rotation.angle[cpuTank] = 0;
 
-        //     addComponent(this.world, Velocity, cpuTank)
+            addComponent(this.world, Velocity, cpuTank)
 
-        //     Velocity.x[cpuTank] = 0
-        //     Velocity.y[cpuTank] = 0
+            Velocity.x[cpuTank] = 0
+            Velocity.y[cpuTank] = 0
 
-        //     addComponent(this.world, Sprite, cpuTank)
+            addComponent(this.world, ArcadeSprite, cpuTank)
 
-        //     Sprite.texture[cpuTank] = Phaser.Math.Between(1, 2) 
+            ArcadeSprite.texture[cpuTank] = Phaser.Math.Between(1, 4) 
             
-        //     addComponent(this.world, CPU, cpuTank)   
-        //     CPU.timeBetweenActions[cpuTank] = Phaser.Math.Between(0,500) 
+            addComponent(this.world, CPU, cpuTank)   
+            CPU.timeBetweenActions[cpuTank] = Phaser.Math.Between(100,500) 
             
-        //     addComponent(this.world, Input, cpuTank)      
-        // }
+            addComponent(this.world, Input, cpuTank)      
+        }
         const spriteGroup = this.physics.add.group()
         const spriteStaticGroup = this.physics.add.staticGroup()
         this.physics.add.collider(spriteGroup, spriteStaticGroup)
+        this.physics.add.collider(spriteGroup, spriteGroup)
 
         // this.spriteSystem = createSpriteSystem(this, TextureKeys)
         this.spriteSystem = createArcadeSpriteSystem(spriteGroup, TextureKeys)
         this.spriteStaticSystem = createArcadeSpriteStaticSystem(spriteStaticGroup, TextureKeys)
         this.movementSystem = createMovementSystem()
         this.playerSystem = createPlayerSystem(this.cursors)
-        // this.cpuSystem = createCPUSystem(this)
+        this.cpuSystem = createCPUSystem(this)
         console.log(Velocity);
         // this.add.sprite(100, 100, 'tankers', 'tank_blue.png');
         // this.add.sprite(300, 300, 'tankers', 'tank_red.png');
@@ -138,7 +139,7 @@ export class Game extends Phaser.Scene
         if(!this.world) return
 
         this.playerSystem?.(this.world)
-        // this.cpuSystem?.(this.world)
+        this.cpuSystem?.(this.world)
         this.movementSystem?.(this.world)
         this.spriteSystem?.(this.world);
         this.spriteStaticSystem?.(this.world);
